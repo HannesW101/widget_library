@@ -19,7 +19,7 @@ A comprehensive, easy-to-use widget library for SFML applications. Create profes
 
 1. **Add the library to your project:**
 ```bash
-git clone https://github.com/yourusername/widget-library
+git clone https://github.com/HannesW101/widget_library
 ```
 
 2. **Add just 2 lines to your CMakeLists.txt:**
@@ -33,7 +33,7 @@ target_link_libraries(your_target widgets)
 #include <widgets/widgets.h>
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "My App");
+    sf::RenderWindow window(sf::VideoMode({800, 600}), "My App");
 
     widgets::Push_button button(window, "Click me!");
     button.set_pos(100, 100);
@@ -61,7 +61,6 @@ int main() {
 #include "widgets/widgets.h"
 
 // Compile all .cpp files from src/ with your project
-// g++ -std=c++17 main.cpp src/*.cpp -lsfml-graphics -lsfml-window -lsfml-system
 ```
 
 ## Available Widgets
