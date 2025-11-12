@@ -45,7 +45,7 @@ namespace widgets {
         ///          - Position: (0, 0)
         /// @param parent_window The parent window to draw the widget to
         /// @param texture The texture that will be applied to the Image
-        Image(sf::RenderWindow& parent_window, sf::Texture const& texture);
+        Image(std::shared_ptr<sf::RenderWindow> parent_window, sf::Texture const& texture);
 
         /// @brief Construct an Image with a texture and texture rectangle
         /// @details This constructor initializes an Image with your chosen texture,
@@ -57,7 +57,7 @@ namespace widgets {
         /// @param texture_rect This rectangle defines a section of `texture` that will be
         ///                     displayed as the texture of the Image
         Image(
-            sf::RenderWindow&  parent_window,
+            std::shared_ptr<sf::RenderWindow> parent_window,
             sf::Texture const& texture,
             sf::IntRect const  texture_rect
             );

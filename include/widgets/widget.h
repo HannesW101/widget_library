@@ -101,6 +101,8 @@ Includes
 */
 #include "SFML/Graphics.hpp"
 
+#include <memory>
+
 /// @brief Widget namespace containing all UI widget classes
 namespace widgets {
 
@@ -125,10 +127,10 @@ namespace widgets {
 
         /// @brief Construct a new Widget with a parent window
         /// @param parent_window Reference to the parent render window
-        explicit Widget(sf::RenderWindow& parent_window);
+        explicit Widget(std::shared_ptr<sf::RenderWindow> parent_window);
 
         /// @brief Reference to the parent window for rendering
-        sf::RenderWindow& _parent_window;
+        std::shared_ptr<sf::RenderWindow> _parent_window;
 
         // =========================================================================
         // Rule of 5 - Deleted Operations
@@ -297,7 +299,11 @@ namespace widgets {
         /// @brief Get the widget rotation
         /// @return sf::Angle Current rotation angle
         virtual sf::Angle get_rotation() const;
-
+        // =========================================================================
+        // Helper Functions
+        // =========================================================================
+    protected:
+        bool _is_parent_window_nullptr() const;
     }; // class widget
 
 } // namespace widgets

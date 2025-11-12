@@ -21,7 +21,7 @@ int main() {
     ctx_settings.antiAliasingLevel = 8;
 
     // Create window
-    sf::RenderWindow window(
+    auto window = std::make_shared<sf::RenderWindow>(
         sf::VideoMode({800, 600}),
         "SFML Widget Library - Basic Example",
         sf::State::Windowed,
@@ -29,7 +29,7 @@ int main() {
     );
 
     // FPS limit
-    window.setFramerateLimit(60);
+    window->setFramerateLimit(60);
 
     // ========== CREATE WIDGETS ==========
 
@@ -104,7 +104,7 @@ int main() {
         button->set_color(sf::Color(100, 160, 210));
         status_label->set_text_string("Status: Hovering over button");
         status_label->set_text_color(sf::Color::Cyan);
-        window.setMouseCursor(sf::Cursor(sf::Cursor::Type::Hand));
+        window->setMouseCursor(sf::Cursor(sf::Cursor::Type::Hand));
     });
 
     // Button: Stop hover effect
@@ -113,7 +113,7 @@ int main() {
         button->set_color(sf::Color(70, 130, 180));
         status_label->set_text_string("Status: Ready");
         status_label->set_text_color(sf::Color::Green);
-        window.setMouseCursor(sf::Cursor(sf::Cursor::Type::Arrow));
+        window->setMouseCursor(sf::Cursor(sf::Cursor::Type::Arrow));
     });
 
     // Text Input: Character entry
@@ -154,7 +154,7 @@ int main() {
             text_input->set_border_color(sf::Color(150, 150, 150));
         }
 
-        window.setMouseCursor(sf::Cursor(sf::Cursor::Type::Hand));
+        window->setMouseCursor(sf::Cursor(sf::Cursor::Type::Hand));
     });
 
     // Text Input: Stop hover effect
@@ -165,24 +165,24 @@ int main() {
             text_input->set_border_color(sf::Color(100, 100, 100));
         }
 
-        window.setMouseCursor(sf::Cursor(sf::Cursor::Type::Arrow));
+        window->setMouseCursor(sf::Cursor(sf::Cursor::Type::Arrow));
     });
 
     // ========== MAIN LOOP ==========
 
-    while (window.isOpen()) {
+    while (window->isOpen()) {
 
-        while (const std::optional event = window.pollEvent()) {
+        while (const std::optional event = window->pollEvent()) {
 
             // Close window: exit
-            if (event->is<sf::Event::Closed>()) window.close();
+            if (event->is<sf::Event::Closed>()) window->close();
 
             // ESC key to exit
             if (const auto* key_pressed = event->getIf<sf::Event::KeyPressed>()) {
 
                 if (key_pressed->code == sf::Keyboard::Key::Escape) {
 
-                    window.close();
+                    window->close();
                 }
             }
 
@@ -207,7 +207,7 @@ int main() {
 
         // ========== RENDER ==========
 
-        window.clear(sf::Color(30, 30, 30)); // Dark background
+        window->clear(sf::Color(30, 30, 30)); // Dark background
 
         // Draw all widgets
         title->draw();
@@ -218,7 +218,7 @@ int main() {
         status_label->draw();
         instructions->draw();
 
-        window.display();
+        window->display();
     }
 
     return 0;

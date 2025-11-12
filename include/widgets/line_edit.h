@@ -54,7 +54,7 @@ namespace widgets {
         /// @param parent_window The parent window to draw the widget to
         /// @param placeholder_string The text placeholder string for Line_edit
         explicit Line_edit(
-            sf::RenderWindow& parent_window,
+            std::shared_ptr<sf::RenderWindow> parent_window,
             sf::String const& placeholder_string = "placeholder string"
             );
 

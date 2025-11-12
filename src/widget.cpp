@@ -19,10 +19,10 @@ Construction / Destruction
 ------------------------------------------------------------------------------
 */
     Widget::Widget(
-        sf::RenderWindow& parent_window
+        std::shared_ptr<sf::RenderWindow> parent_window
         ) :
-        _parent_window(parent_window ),
-        _current_state(STATE__DEFAULT)
+        _parent_window(std::move(parent_window)),
+        _current_state(STATE__DEFAULT          )
     {}
 /*
 ------------------------------------------------------------------------------
@@ -382,6 +382,22 @@ Get Functions
         "returning 0.0f degrees/radians.";
 
         return sf::degrees(0.0f);
+    }
+/*
+------------------------------------------------------------------------------
+Helper Functions
+------------------------------------------------------------------------------
+*/
+    bool Widget::_is_parent_window_nullptr() const {
+
+        if (!_parent_window) {
+
+            LOG(WARNING) << "_parent_window is nullptr";
+            return true;
+        } else {
+
+            return false;
+        }
     }
 }
 /*

@@ -27,12 +27,12 @@ Construction / Destruction
 ------------------------------------------------------------------------------
 */
     Push_button::Push_button(
-        sf::RenderWindow& parent_window
+        std::shared_ptr<sf::RenderWindow> parent_window
         ) :
-        Widget       (parent_window      ),
-        Signals_slots(/*---------------*/),
-        _btn_rect    (DEFAULT_WIDGET_SIZE),
-        _btn_text    (DEFAULT_WIDGET_FONT)  // string = "", characterSize = 30
+        Widget       (std::move(parent_window)),
+        Signals_slots(/*--------------------*/),
+        _btn_rect    (DEFAULT_WIDGET_SIZE     ),
+        _btn_text    (DEFAULT_WIDGET_FONT     )  // string = "", characterSize = 30
     {
 
         _btn_rect.setPosition (DEFAULT_WIDGET_POS  );
@@ -56,8 +56,11 @@ Functionality
             // of the widget before drawing to the window.
             _update_widget();
 
-            _parent_window.draw(_btn_rect);
-            _parent_window.draw(_btn_text);
+            if (!_is_parent_window_nullptr()) {
+
+                _parent_window->draw(_btn_rect);
+                _parent_window->draw(_btn_text);
+            }
         }
     }
 
@@ -479,9 +482,9 @@ Helper Functions
 
         bool is_hovering = false;
 
-        sf::Vector2i  const mouse_pos_pixels = sf::Mouse::getPosition         (_parent_window  );
-        sf::Vector2f  const mouse_pos_coords = _parent_window.mapPixelToCoords(mouse_pos_pixels);
-        sf::FloatRect const btn_bounds       = _btn_rect.getGlobalBounds      (/*------------*/);
+        sf::Vector2i  const mouse_pos_pixels = sf::Mouse::getPosition          (*_parent_window );
+        sf::Vector2f  const mouse_pos_coords = _parent_window->mapPixelToCoords(mouse_pos_pixels);
+        sf::FloatRect const btn_bounds       = _btn_rect.getGlobalBounds       (/*------------*/);
 
         if (btn_bounds.contains(mouse_pos_coords)) {
 

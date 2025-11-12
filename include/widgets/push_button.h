@@ -51,7 +51,7 @@ namespace widgets {
         ///          - Border thickness: 0.0f
         ///          - Border color: Black
         /// @param parent_window The parent window to draw the widget to
-        explicit Push_button(sf::RenderWindow& parent_window);
+        explicit Push_button(std::shared_ptr<sf::RenderWindow> parent_window);
 
         /// @brief Default destructor
         ~Push_button() = default;

@@ -46,7 +46,7 @@ namespace widgets {
         ///          - Position: (0, 0)
         /// @param parent_window The parent window to draw the widget to
         /// @param texture The texture that will be applied to the sprite button
-        Sprite_button(sf::RenderWindow& parent_window, sf::Texture const& texture);
+        Sprite_button(std::shared_ptr<sf::RenderWindow> parent_window, sf::Texture const& texture);
 
         /// @brief Construct a Sprite_button with a texture and texture rectangle
         /// @details This constructor initializes a Sprite_button with
@@ -58,7 +58,7 @@ namespace widgets {
         /// @param texture_rect This rectangle defines a section of `texture` that will be
         ///                     displayed as the texture of the sprite button
         Sprite_button(
-            sf::RenderWindow&  parent_window,
+            std::shared_ptr<sf::RenderWindow> parent_window,
             sf::Texture const& texture,
             sf::IntRect const  texture_rect
             );

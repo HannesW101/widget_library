@@ -27,25 +27,25 @@ Construction / Destruction
 ------------------------------------------------------------------------------
 */
     Image::Image(
-        sf::RenderWindow&  parent_window,
+        std::shared_ptr<sf::RenderWindow> parent_window,
         sf::Texture const& texture
         ) :
-        Widget       (parent_window      ),
-        Signals_slots(/*---------------*/),
-        _sprite      (texture            )
+        Widget       (std::move(parent_window)),
+        Signals_slots(/*--------------------*/),
+        _sprite      (texture                 )
     {
 
         _sprite.setPosition (DEFAULT_WIDGET_POS);
     }
 
     Image::Image(
-        sf::RenderWindow&  parent_window,
+        std::shared_ptr<sf::RenderWindow> parent_window,
         sf::Texture const& texture,
         sf::IntRect const  texture_rect
         ) :
-        Widget       (parent_window      ),
-        Signals_slots(/*---------------*/),
-        _sprite      (texture            )
+        Widget       (std::move(parent_window)),
+        Signals_slots(/*--------------------*/),
+        _sprite      (texture                 )
     {
 
         _sprite.setPosition   (DEFAULT_WIDGET_POS);
@@ -67,7 +67,10 @@ Functionality
             // of the widget before drawing to the window.
             _update_widget();
 
-            _parent_window.draw(_sprite);
+            if (!_is_parent_window_nullptr()) {
+
+                _parent_window->draw(_sprite);
+            }
         }
     }
 

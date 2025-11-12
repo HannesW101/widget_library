@@ -48,7 +48,7 @@ namespace widgets {
         ///          - Text color: Black
         /// @param parent_window The parent window to draw the widget to
         /// @param string The text string for label
-        explicit Label(sf::RenderWindow& parent_window, sf::String const& string = "");
+        explicit Label(std::shared_ptr<sf::RenderWindow> parent_window, sf::String const& string = "");
 
         /// @brief Default destructor
         ~Label() = default;

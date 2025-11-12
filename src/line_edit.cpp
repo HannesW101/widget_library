@@ -27,16 +27,16 @@ Construction / Destruction
 ------------------------------------------------------------------------------
 */
     Line_edit::Line_edit(
-        sf::RenderWindow&  parent_window,
+        std::shared_ptr<sf::RenderWindow> parent_window,
         sf::String const&  placeholder_string
         ) :
-        Widget              (parent_window      ),
-        Signals_slots       (/*---------------*/),
-        _le_placeholder_text(DEFAULT_WIDGET_FONT),
-        _le_typing_text     (DEFAULT_WIDGET_FONT),
-        _le_rect            (DEFAULT_WIDGET_SIZE),
-        _max_chars          (18u                ),
-        _typed_char         (""                 )
+        Widget              (std::move(parent_window)),
+        Signals_slots       (/*--------------------*/),
+        _le_placeholder_text(DEFAULT_WIDGET_FONT     ),
+        _le_typing_text     (DEFAULT_WIDGET_FONT     ),
+        _le_rect            (DEFAULT_WIDGET_SIZE     ),
+        _max_chars          (18u                     ),
+        _typed_char         (""                      )
     {
 
         _le_placeholder_text.setPosition (DEFAULT_WIDGET_POS         );
@@ -66,13 +66,21 @@ Functionality
             if (_le_typing_text.getString().isEmpty() && !(_current_state == STATE__TYPING)) {
 
                 _resize_rect(_le_placeholder_text);
-                _parent_window.draw(_le_rect);
-                _parent_window.draw(_le_placeholder_text);
+
+                if (!_is_parent_window_nullptr()) {
+
+                    _parent_window->draw(_le_rect);
+                    _parent_window->draw(_le_placeholder_text);
+                }
             } else {
 
                 _resize_rect(_le_typing_text);
-                _parent_window.draw(_le_rect);
-                _parent_window.draw(_le_typing_text);
+
+                if (!_is_parent_window_nullptr()) {
+
+                    _parent_window->draw(_le_rect);
+                    _parent_window->draw(_le_typing_text);
+                }
             }
         }
     }
@@ -449,9 +457,9 @@ Helper Functions
 
         bool is_hovering = false;
 
-        sf::Vector2i  const mouse_pos_pixels = sf::Mouse::getPosition         (_parent_window  );
-        sf::Vector2f  const mouse_pos_coords = _parent_window.mapPixelToCoords(mouse_pos_pixels);
-        sf::FloatRect const lbl_bounds       = _le_rect.getGlobalBounds       (/*------------*/);
+        sf::Vector2i  const mouse_pos_pixels = sf::Mouse::getPosition          (*_parent_window );
+        sf::Vector2f  const mouse_pos_coords = _parent_window->mapPixelToCoords(mouse_pos_pixels);
+        sf::FloatRect const lbl_bounds       = _le_rect.getGlobalBounds        (/*------------*/);
 
         if (lbl_bounds.contains(mouse_pos_coords)) {
 
