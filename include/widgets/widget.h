@@ -130,7 +130,7 @@ namespace widgets {
         explicit Widget(std::shared_ptr<sf::RenderWindow> parent_window);
 
         /// @brief Reference to the parent window for rendering
-        std::shared_ptr<sf::RenderWindow> _parent_window;
+        std::weak_ptr<sf::RenderWindow> _parent_window;
 
         // =========================================================================
         // Rule of 5 - Deleted Operations

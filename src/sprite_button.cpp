@@ -69,7 +69,8 @@ Functionality
 
             if (!_is_parent_window_nullptr()) {
 
-                _parent_window->draw(_btn_sprite);
+                auto temp_ptr = _parent_window.lock();
+                temp_ptr->draw(_btn_sprite);
             }
         }
     }
@@ -254,9 +255,11 @@ Helper Functions
 
         bool is_hovering = false;
 
-        sf::Vector2i  const mouse_pos_pixels = sf::Mouse::getPosition          (*_parent_window );
-        sf::Vector2f  const mouse_pos_coords = _parent_window->mapPixelToCoords(mouse_pos_pixels);
-        sf::FloatRect const btn_bounds       = _btn_sprite.getGlobalBounds     (/*------------*/);
+         auto temp_ptr = _parent_window.lock();
+
+        sf::Vector2i  const mouse_pos_pixels = sf::Mouse::getPosition     (*temp_ptr       );
+        sf::Vector2f  const mouse_pos_coords = temp_ptr->mapPixelToCoords (mouse_pos_pixels);
+        sf::FloatRect const btn_bounds       = _btn_sprite.getGlobalBounds(/*------------*/);
 
         if (btn_bounds.contains(mouse_pos_coords)) {
 

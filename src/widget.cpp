@@ -390,7 +390,7 @@ Helper Functions
 */
     bool Widget::_is_parent_window_nullptr() const {
 
-        if (!_parent_window) {
+        if (_parent_window.expired()) {
 
             LOG(WARNING) << "_parent_window is nullptr";
             return true;

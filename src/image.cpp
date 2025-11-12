@@ -69,7 +69,9 @@ Functionality
 
             if (!_is_parent_window_nullptr()) {
 
-                _parent_window->draw(_sprite);
+                auto temp_ptr = _parent_window.lock();
+
+                temp_ptr->draw(_sprite);
             }
         }
     }
